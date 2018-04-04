@@ -14,7 +14,7 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
 
     // Le slider de réglage de valeur
     m_top_box.add_child( m_slider_value );
-    m_slider_value.set_range(0.0 , 100.0); // Valeurs arbitraires, à adapter...
+    m_slider_value.set_range(0.0, 100.0);  // Valeurs arbitraires, à adapter...
     m_slider_value.set_dim(20,80);
     m_slider_value.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Up);
 
@@ -92,7 +92,7 @@ EdgeInterface::EdgeInterface(Vertex& from, Vertex& to)
 
     // Le slider de réglage de valeur
     m_box_edge.add_child( m_slider_weight );
-    m_slider_weight.set_range(0.0 , 100.0); // Valeurs arbitraires, à adapter...
+    m_slider_weight.set_range(0.0, 100.0);  // Valeurs arbitraires, à adapter...
     m_slider_weight.set_dim(16,40);
     m_slider_weight.set_gravity_y(grman::GravityY::Up);
 
@@ -245,3 +245,30 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
     m_edges[idx] = Edge(weight, ei);
 }
 
+void Graph::charger()
+{
+    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
+    int som, x,y, nbSommets, nbAretes;
+    double population ;
+    std::string nom,nomfic;
+
+    int indice, som1,som2;
+    double poids;
+    std::ifstream fichier("r1.txt");
+    if(fichier)
+    {
+        fichier >> nbSommets;
+        fichier >> nbAretes;
+        for(unsigned int i(0); i < nbSommets; ++i)
+        {
+            fichier >> som >> population >> x >> y >> nom;
+            add_interfaced_vertex(som,population,x,y,nom);
+        }
+
+        for(unsigned int i(0); i < nbAretes; ++i)
+        {
+            fichier >> indice >> som1 >> som2 >> poids;
+            add_interfaced_edge(indice,som1,som2,poids);
+        }
+    }
+}

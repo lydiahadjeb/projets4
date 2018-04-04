@@ -13,7 +13,7 @@ int main()
 
     /// Un exemple de graphe
     Graph g;
-    g.make_example();
+    g.charger();
 
 
     /// Vous gardez la main sur la "boucle de jeu"

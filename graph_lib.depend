@@ -54,3 +54,59 @@
 	<iostream>
 	"graph.h"
 
+1522883087 source:c:\users\micro\projets4\graph.cpp
+	"graph.h"
+
+1522883008 c:\users\micro\projets4\graph.h
+	<vector>
+	<map>
+	<string>
+	<memory>
+	<fstream>
+	"grman/grman.h"
+
+1522881750 c:\users\micro\projets4\grman\grman.h
+	<allegro.h>
+	<string>
+	"grman_couleurs.h"
+	"coords.h"
+	"widget.h"
+
+1522881750 c:\users\micro\projets4\grman\grman_couleurs.h
+
+1522881750 c:\users\micro\projets4\grman\coords.h
+	<cmath>
+
+1522881750 c:\users\micro\projets4\grman\widget.h
+	"grman.h"
+	<iostream>
+	<string>
+	<vector>
+	<algorithm>
+	<allegro.h>
+
+1522881750 source:c:\users\micro\projets4\grman\coords.cpp
+	"coords.h"
+
+1522881750 source:c:\users\micro\projets4\grman\grman.cpp
+	<cmath>
+	<unordered_map>
+	<unordered_set>
+	<utility>
+	<string>
+	<iostream>
+	<regex>
+	"grman.h"
+	<allegro.h>
+	<png.h>
+	<loadpng.h>
+	<jpgalleg.h>
+
+1522881750 source:c:\users\micro\projets4\grman\widget.cpp
+	"widget.h"
+
+1522882972 source:c:\users\micro\projets4\main.cpp
+	"grman/grman.h"
+	<iostream>
+	"graph.h"
+
