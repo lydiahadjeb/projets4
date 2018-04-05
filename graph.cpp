@@ -149,6 +149,32 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_main_box.set_dim(908,720);
     m_main_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
     m_main_box.set_bg_color(BLANCJAUNE);
+
+    // bouton delete sommet
+    m_tool_box.add_child( m_delete_vertex );
+    m_delete_vertex.set_frame(2,2,80,80);
+    m_delete_vertex.add_child( m_img );
+    m_img.set_pic_name("delete.png");
+
+    // bouton ajouter sommet
+    m_tool_box.add_child( m_add_vertex );
+    m_add_vertex.set_frame(2,100,80,80);
+    m_add_vertex.add_child( m_img3 );
+    m_img3.set_pic_name("add.jpg");
+
+    // bouton ajouter arc
+    m_tool_box.add_child( m_add_edges );
+    m_add_edges.set_frame(2,200,80,80);
+    m_add_edges.add_child( m_img4 );
+    m_img4.set_pic_name("add2.jpg");
+
+
+    // bouton sauvgarde
+    m_tool_box.add_child( m_save );
+    m_save.set_frame(2,640,80,80);
+    m_save.add_child( m_img2 );
+    m_img2.set_pic_name("save.jpg");
+
 }
 
 
@@ -208,6 +234,17 @@ void Graph::update()
     for (auto &elt : m_edges)
         elt.second.post_update();
 
+    if(m_interface->m_delete_vertex.clicked())
+    {
+        test_remove_vertex();
+    }
+
+    if(m_interface->m_add_edges.clicked())
+    {
+        add_edges();
+    }
+
+
 }
 
 /// Aide à l'ajout de sommets interfacés
@@ -251,6 +288,132 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
     m_vertices[id_vert1].m_out.push_back(idx);
     m_vertices[id_vert2].m_in.push_back(idx);
 }
+
+void Graph::test_remove_edge(int eidx)
+{
+    /// référence vers le Edge à enlever
+    Edge &remed=m_edges.at(eidx);
+
+    //std::cout << "Removing edge " << eidx << " " << remed.m_from << "->" << remed.m_to << " " << remed.m_weight << std::endl;
+
+    /// Tester la cohérence : nombre d'arc entrants et sortants des sommets 1 et 2
+    //std::cout << m_vertices[remed.m_from].m_in.size() << " " << m_vertices[remed.m_from].m_out.size() << std::endl;
+    //std::cout << m_vertices[remed.m_to].m_in.size() << " " << m_vertices[remed.m_to].m_out.size() << std::endl;
+    //std::cout << m_edges.size() << std::endl;
+
+    /// test : on a bien des éléments interfacés
+    if (m_interface && remed.m_interface)
+    {
+        /// Ne pas oublier qu'on a fait ça à l'ajout de l'arc :
+        /* EdgeInterface *ei = new EdgeInterface(m_vertices[id_vert1], m_vertices[id_vert2]); */
+        /* m_interface->m_main_box.add_child(ei->m_top_edge);  */
+        /* m_edges[idx] = Edge(weight, ei); */
+        /// Le new EdgeInterface ne nécessite pas de delete car on a un shared_ptr
+        /// Le Edge ne nécessite pas non plus de delete car on n'a pas fait de new (sémantique par valeur)
+        /// mais il faut bien enlever le conteneur d'interface m_top_edge de l'arc de la main_box du graphe
+        m_interface->m_main_box.remove_child( remed.m_interface->m_top_edge );
+    }
+
+    /// Il reste encore à virer l'arc supprimé de la liste des entrants et sortants des 2 sommets to et from !
+    /// References sur les listes de edges des sommets from et to
+    std::vector<int> &vefrom = m_vertices[remed.m_from].m_out;
+    std::vector<int> &veto = m_vertices[remed.m_to].m_in;
+    vefrom.erase( std::remove( vefrom.begin(), vefrom.end(), eidx ), vefrom.end() );
+    veto.erase( std::remove( veto.begin(), veto.end(), eidx ), veto.end() );
+
+    /// Le Edge ne nécessite pas non plus de delete car on n'a pas fait de new (sémantique par valeur)
+    /// Il suffit donc de supprimer l'entrée de la map pour supprimer à la fois l'Edge et le EdgeInterface
+    /// mais malheureusement ceci n'enlevait pas automatiquement l'interface top_edge en tant que child de main_box !
+    m_edges.erase( eidx );
+
+
+    /// Tester la cohérence : nombre d'arc entrants et sortants des sommets 1 et 2
+    //std::cout << m_vertices[remed.m_from].m_in.size() << " " << m_vertices[remed.m_from].m_out.size() << std::endl;
+    //std::cout << m_vertices[remed.m_to].m_in.size() << " " << m_vertices[remed.m_to].m_out.size() << std::endl;
+    //std::cout << m_edges.size() << std::endl;
+
+}
+
+
+
+
+void Graph::test_remove_vertex()
+{
+    int vidx;
+
+    std::cout<<"quel sommet voulez-vous supprimer?"<<std::endl;
+    std::cin>>vidx;
+
+    Vertex &remed=m_vertices.at(vidx);
+
+//supprime les aretes entrantes
+    for(unsigned int i=0; i<m_vertices[vidx].m_in.size(); i++)
+    {
+        int a=m_vertices[vidx].m_in[i];
+        test_remove_edge(a);
+
+    }
+
+//supprime les aretes sortantes
+    for(unsigned int i=0; i<m_vertices[vidx].m_out.size(); i++)
+    {
+        int a=m_vertices[vidx].m_out[i];
+        test_remove_edge(a);
+
+    }
+
+
+
+    m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
+    m_vertices.erase(vidx);
+
+    for(auto& elem: m_edges)
+    {
+        if((elem.second.m_to==vidx)||(elem.second.m_from==vidx))
+        {
+            test_remove_edge(elem.first);
+
+        }
+    }
+
+
+}
+
+
+void Graph::add_edges()
+{
+    int n,sommet1,sommet2;
+    float poids;
+    bool ok=false;
+
+    do
+    {
+
+        if((m_edges.count(n))==1)
+        {
+            n++;
+        }
+        else
+        {
+            ok=true;
+        }
+    }
+    while(!ok);
+
+    std::cout<<"quel est le sommet de depart de l'arete?"<<std::endl;
+    std::cin>>sommet1;
+    std::cout<<"quel est le sommet d'arriver de l'arete?"<<std::endl;
+    std::cin>>sommet2;
+    std::cout<<"quel est le poids de l'arete?"<<std::endl;
+    std::cin>>poids;
+
+    add_interfaced_edge(n,sommet1,sommet2,poids);
+
+
+
+
+}
+
 
 /*void Graph::charger()
 {
@@ -366,11 +529,11 @@ void Graph::sauvegarde()
 {
     std::string nom, nom2;
 ///vertex
-std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
-std::cin>> nom;
-nom2=nom+".txt";
+//std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
+//std::cin>> nom;
+//nom2=nom+".txt";
 
-std::ofstream fichier (nom2);
+std::ofstream fichier ("sauvegarde.txt");
 ///parcourir la map de vertex et la retranscrire dans un fichier
         fichier<<m_vertices.size()<<std::endl;
         fichier<<m_edges.size()<<std::endl;

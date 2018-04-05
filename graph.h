@@ -264,6 +264,22 @@ class GraphInterface
         /// Dans cette boite seront ajoutés des boutons de contrôle etc...
         grman::WidgetBox m_tool_box;
 
+        //bouton delete sommet
+        grman::WidgetButton m_delete_vertex;
+        grman::WidgetImage m_img;
+
+        //bouton ajouter sommet
+        grman::WidgetButton m_add_vertex;
+        grman::WidgetImage m_img3;
+
+         //bouton ajouter arc
+        grman::WidgetButton m_add_edges;
+        grman::WidgetImage m_img4;
+
+        //bouton sauvgarde
+        grman::WidgetButton m_save;
+        grman::WidgetImage m_img2;
+
 
         // A compléter éventuellement par des widgets de décoration ou
         // d'édition (boutons ajouter/enlever ...)
@@ -299,6 +315,9 @@ class Graph
 
         void add_interfaced_vertex(int idx, double value, int x, int y, std::string pic_name="", int pic_idx=0 );
         void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
+        void test_remove_edge(int eidx);
+        void test_remove_vertex();
+        void add_edges();
 
         /// Méthode spéciale qui construit un graphe arbitraire (démo)
         /// Voir implémentation dans le .cpp
