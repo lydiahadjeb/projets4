@@ -14,6 +14,7 @@ int main()
     /// Un exemple de graphe
     Graph g;
     g.charger();
+    g.sauvegarde();
 
 
     /// Vous gardez la main sur la "boucle de jeu"

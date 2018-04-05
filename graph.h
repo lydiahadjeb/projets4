@@ -145,9 +145,9 @@ class Vertex
         /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
         std::shared_ptr<VertexInterface> m_interface = nullptr;
 
-        // Docu shared_ptr : https://msdn.microsoft.com/fr-fr/library/hh279669.aspx
-        // La ligne précédente est en gros équivalent à la ligne suivante :
-        // VertexInterface * m_interface = nullptr;
+        /// Docu shared_ptr : https://msdn.microsoft.com/fr-fr/library/hh279669.aspx
+        /// La ligne précédente est en gros équivalent à la ligne suivante :
+        /// VertexInterface * m_interface = nullptr;
 
 
     public:
@@ -270,8 +270,8 @@ class GraphInterface
 
     public :
 
-        // Le constructeur met en place les éléments de l'interface
-        // voir l'implémentation dans le .cpp
+        /// Le constructeur met en place les éléments de l'interface
+        /// voir l'implémentation dans le .cpp
         GraphInterface(int x, int y, int w, int h);
 };
 
@@ -307,7 +307,7 @@ class Graph
         void make_example();
 
         void charger();
-
+        void sauvegarde ();
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();

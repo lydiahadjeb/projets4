@@ -97,7 +97,7 @@ void Widget::create_frame_context()
 
     m_abs_frame.dim = m_frame.dim;
 
-    // Petits soucis de plantages avec les sub_bitmaps hors écran...
+    /// Petits soucis de plantages avec les sub_bitmaps hors écran...
     int x = std::max(m_abs_frame.pos.x, 0.);
     int y = std::max(m_abs_frame.pos.y, 0.);
     int w = m_abs_frame.dim.x+std::min(m_abs_frame.pos.x, 0.);
@@ -295,7 +295,10 @@ void WidgetImage::draw()
     }
     show_picture(m_view, m_pic_name, 0, 0, m_pic_idx);
 }
-
+ std::string WidgetImage::get_pic_name()
+ {
+     return m_pic_name;
+ }
 
 
 /***************************************************

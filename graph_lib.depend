@@ -54,10 +54,11 @@
 	<iostream>
 	"graph.h"
 
-1522883087 source:c:\users\micro\projets4\graph.cpp
+1522939549 source:c:\users\micro\projets4\graph.cpp
 	"graph.h"
+	<fstream>
 
-1522883008 c:\users\micro\projets4\graph.h
+1522927539 c:\users\micro\projets4\graph.h
 	<vector>
 	<map>
 	<string>
@@ -77,7 +78,7 @@
 1522881750 c:\users\micro\projets4\grman\coords.h
 	<cmath>
 
-1522881750 c:\users\micro\projets4\grman\widget.h
+1522928841 c:\users\micro\projets4\grman\widget.h
 	"grman.h"
 	<iostream>
 	<string>
@@ -102,10 +103,10 @@
 	<loadpng.h>
 	<jpgalleg.h>
 
-1522881750 source:c:\users\micro\projets4\grman\widget.cpp
+1522928841 source:c:\users\micro\projets4\grman\widget.cpp
 	"widget.h"
 
-1522882972 source:c:\users\micro\projets4\main.cpp
+1522926859 source:c:\users\micro\projets4\main.cpp
 	"grman/grman.h"
 	<iostream>
 	"graph.h"

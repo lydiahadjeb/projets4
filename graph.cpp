@@ -1,4 +1,5 @@
 #include "graph.h"
+#include <fstream>
 
 /***************************************************
                     VERTEX
@@ -243,6 +244,12 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
     EdgeInterface *ei = new EdgeInterface(m_vertices[id_vert1], m_vertices[id_vert2]);
     m_interface->m_main_box.add_child(ei->m_top_edge);
     m_edges[idx] = Edge(weight, ei);
+
+    m_edges[idx].m_from=id_vert1;
+    m_edges[idx].m_to=id_vert2;
+
+    m_vertices[id_vert1].m_out.push_back(idx);
+    m_vertices[id_vert2].m_in.push_back(idx);
 }
 
 void Graph::charger()
@@ -271,4 +278,27 @@ void Graph::charger()
             add_interfaced_edge(indice,som1,som2,poids);
         }
     }
+}
+
+
+void Graph::sauvegarde()
+{
+///vertex
+std::ofstream fichier ("sauvegarde.txt");
+///parcourir la map de vertex et la retranscrire dans un fichier
+        fichier<<m_vertices.size()<<std::endl;
+        fichier<<m_edges.size()<<std::endl;
+        for (const auto & elem : m_vertices )
+        {
+
+           fichier<<elem.first<< ' '<<elem.second.m_value<< ' '<<elem.second.m_interface->m_top_box.get_posx()<< ' '<< elem.second.m_interface->m_top_box.get_posy()<< ' ' << elem.second.m_interface->m_img.get_pic_name()<<std::endl;
+        }
+/// ajouter une ligne pour actualiser la position avec le chemin indique
+
+///edge
+        for (const auto & elem3 : m_edges )
+        {
+
+           fichier<<elem3.first<<' ' <<elem3.second.m_from<< ' ' << elem3.second.m_to<<' ' << elem3.second.m_weight<<std::endl;
+        }
 }
