@@ -306,7 +306,9 @@ class Graph
         /// de chargement de fichiers par exemple.
         void make_example();
 
-        void charger();
+        void charger1();
+        void charger2();
+        void charger3();
         void sauvegarde ();
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface

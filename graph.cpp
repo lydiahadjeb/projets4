@@ -252,7 +252,35 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
     m_vertices[id_vert2].m_in.push_back(idx);
 }
 
-void Graph::charger()
+/*void Graph::charger()
+{
+    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
+    int som, x,y, nbSommets, nbAretes;
+    double population ;
+    std::string nom,nomfic;
+
+    int indice, som1,som2;
+    double poids;
+    std::ifstream fichier("r1.txt");
+    if(fichier)
+    {
+        fichier >> nbSommets;
+        fichier >> nbAretes;
+        for(unsigned int i(0); i < nbSommets; ++i)
+        {
+            fichier >> som >> population >> x >> y >> nom;
+            add_interfaced_vertex(som,population,x,y,nom);
+        }
+
+        for(unsigned int i(0); i < nbAretes; ++i)
+        {
+            fichier >> indice >> som1 >> som2 >> poids;
+            add_interfaced_edge(indice,som1,som2,poids);
+        }
+    }
+}*/
+
+void Graph::charger1()
 {
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
     int som, x,y, nbSommets, nbAretes;
@@ -279,12 +307,70 @@ void Graph::charger()
         }
     }
 }
+void Graph::charger2()
+{
+    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
+    int som, x,y, nbSommets, nbAretes;
+    double population ;
+    std::string nom,nomfic;
 
+    int indice, som1,som2;
+    double poids;
+    std::ifstream fichier("r2.txt");
+    if(fichier)
+    {
+        fichier >> nbSommets;
+        fichier >> nbAretes;
+        for(unsigned int i(0); i < nbSommets; ++i)
+        {
+            fichier >> som >> population >> x >> y >> nom;
+            add_interfaced_vertex(som,population,x,y,nom);
+        }
+
+        for(unsigned int i(0); i < nbAretes; ++i)
+        {
+            fichier >> indice >> som1 >> som2 >> poids;
+            add_interfaced_edge(indice,som1,som2,poids);
+        }
+    }
+}
+void Graph::charger3()
+{
+    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
+    int som, x,y, nbSommets, nbAretes;
+    double population ;
+    std::string nom,nomfic;
+
+    int indice, som1,som2;
+    double poids;
+    std::ifstream fichier("r3.txt");
+    if(fichier)
+    {
+        fichier >> nbSommets;
+        fichier >> nbAretes;
+        for(unsigned int i(0); i < nbSommets; ++i)
+        {
+            fichier >> som >> population >> x >> y >> nom;
+            add_interfaced_vertex(som,population,x,y,nom);
+        }
+
+        for(unsigned int i(0); i < nbAretes; ++i)
+        {
+            fichier >> indice >> som1 >> som2 >> poids;
+            add_interfaced_edge(indice,som1,som2,poids);
+        }
+    }
+}
 
 void Graph::sauvegarde()
 {
+    std::string nom, nom2;
 ///vertex
-std::ofstream fichier ("sauvegarde.txt");
+std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
+std::cin>> nom;
+nom2=nom+".txt";
+
+std::ofstream fichier (nom2);
 ///parcourir la map de vertex et la retranscrire dans un fichier
         fichier<<m_vertices.size()<<std::endl;
         fichier<<m_edges.size()<<std::endl;
