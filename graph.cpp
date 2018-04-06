@@ -469,6 +469,7 @@ void Graph::test_remove_vertex(int vidx)
         for(unsigned int i(0); i < nbSommets; ++i)
         {
             fichier >> som >> population >> x >> y >> nom;
+
             add_interfaced_vertex(som,population,x,y,nom);
         }
 
