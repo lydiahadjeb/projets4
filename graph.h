@@ -331,8 +331,11 @@ class Graph
         void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
         void test_remove_edge(int eidx);
         void test_remove_vertex();
-        void add_vertex();void test_remove_vertex(int vidx);
 
+        void add_vertex();
+
+
+        void test_remove_vertex(int vidx);
 
 
         /// Méthode spéciale qui construit un graphe arbitraire (démo)

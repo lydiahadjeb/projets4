@@ -254,7 +254,7 @@ void Graph::update()
     }
 
 
-    if(m_interface->m_graphe1.clicked())
+     if(m_interface->m_graphe1.clicked())
 
     {
         clear();
@@ -422,7 +422,6 @@ void Graph::test_remove_vertex()
     m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
     m_vertices.erase(vidx);
 
-
 }
 
 void Graph::test_remove_vertex(int vidx)
@@ -446,7 +445,6 @@ void Graph::test_remove_vertex(int vidx)
     }
 
 
-
     for(auto& elem: m_edges)
     {
         if((elem.second.m_to==vidx)||(elem.second.m_from==vidx))
@@ -468,7 +466,6 @@ void Graph::clear()
     for (auto &it : m_edges)
         test_remove_edge(it.first);
 }
-
 
 void Graph::charger(std::string nomFichier)
 {
@@ -563,7 +560,7 @@ void Graph::add_vertex()
         for( int i(0); i < nbAretes; ++i)
         {
             fichier >> indice >> som1 >> som2 >> poids;
-            //if((som1)==a||(som2)==a)
+
             if((som1==a)&&(m_vertices.count(som2)==1))
             {
 
