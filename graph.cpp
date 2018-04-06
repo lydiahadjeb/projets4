@@ -253,17 +253,24 @@ void Graph::update()
         test_remove_vertex();
     }
 
-    if(m_interface-> m_graphe1.clicked())
+
+    if(m_interface->m_graphe1.clicked())
+
     {
-        charger1();
+        clear();
+        charger("r1.txt");
     }
-    if(m_interface-> m_graphe2.clicked())
+
+    if(m_interface->m_graphe2.clicked())
     {
-        charger2();
+        clear();
+        charger("r2.txt");
     }
-    if(m_interface-> m_graphe3.clicked())
+
+    if(m_interface->m_graphe3.clicked())
     {
-        charger3();
+        clear();
+        charger("r3.txt");
     }
 
     if(m_interface->m_save.clicked())
@@ -276,6 +283,9 @@ void Graph::update()
     {
         add_vertex();
     }
+
+
+
 
 
 
@@ -409,107 +419,69 @@ void Graph::test_remove_vertex()
 
         }
     }
-     m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
+    m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
     m_vertices.erase(vidx);
 
 
 }
 
-
-
-/*void Graph::charger()
+void Graph::test_remove_vertex(int vidx)
 {
-    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
-    int som, x,y, nbSommets, nbAretes;
-    double population ;
-    std::string nom,nomfic;
+    Vertex &remed=m_vertices.at(vidx);
 
-    int indice, som1,som2;
-    double poids;
-    std::ifstream fichier("r1.txt");
-    if(fichier)
+//supprime les aretes entrantes
+    for(unsigned int i=0; i<m_vertices[vidx].m_in.size(); i++)
     {
-        fichier >> nbSommets;
-        fichier >> nbAretes;
-        for(unsigned int i(0); i < nbSommets; ++i)
-        {
-            fichier >> som >> population >> x >> y >> nom;
-            add_interfaced_vertex(som,population,x,y,nom);
-        }
+        int a=m_vertices[vidx].m_in[i];
+        test_remove_edge(a);
 
-        for(unsigned int i(0); i < nbAretes; ++i)
+    }
+
+//supprime les aretes sortantes
+    for(unsigned int i=0; i<m_vertices[vidx].m_out.size(); i++)
+    {
+        int a=m_vertices[vidx].m_out[i];
+        test_remove_edge(a);
+
+    }
+
+
+
+    for(auto& elem: m_edges)
+    {
+        if((elem.second.m_to==vidx)||(elem.second.m_from==vidx))
         {
-            fichier >> indice >> som1 >> som2 >> poids;
-            add_interfaced_edge(indice,som1,som2,poids);
+            test_remove_edge(elem.first);
+
         }
     }
-}*/
+    m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
+    m_vertices.erase(vidx);
 
-void Graph::charger1()
-{
-    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
-    int som, x,y, nbSommets, nbAretes;
-    double population ;
-    std::string nom,nomfic;
 
-    int indice, som1,som2;
-    double poids;
-    std::ifstream fichier("r1.txt");
-    if(fichier)
-    {
-        fichier >> nbSommets;
-        fichier >> nbAretes;
-        for(int i(0); i < nbSommets; ++i)
-        {
-            fichier >> som >> population >> x >> y >> nom;
-            add_interfaced_vertex(som,population,x,y,nom);
-        }
-
-        for( int i(0); i < nbAretes; ++i)
-        {
-            fichier >> indice >> som1 >> som2 >> poids;
-            add_interfaced_edge(indice,som1,som2,poids);
-        }
-    }
 }
-void Graph::charger2()
+
+void Graph::clear()
 {
-    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
-    int som, x,y, nbSommets, nbAretes;
-    double population ;
-    std::string nom,nomfic;
-
-    int indice, som1,som2;
-    double poids;
-    std::ifstream fichier("r2.txt");
-    if(fichier)
-    {
-        fichier >> nbSommets;
-        fichier >> nbAretes;
-        for(int i(0); i < nbSommets; ++i)
-        {
-            fichier >> som >> population >> x >> y >> nom;
-            add_interfaced_vertex(som,population,x,y,nom);
-        }
-
-        for( int i(0); i < nbAretes; ++i)
-        {
-            fichier >> indice >> som1 >> som2 >> poids;
-            add_interfaced_edge(indice,som1,som2,poids);
-        }
-    }
+    for (auto &it : m_vertices)
+        test_remove_vertex(it.first);
+    for (auto &it : m_edges)
+        test_remove_edge(it.first);
 }
-void Graph::charger3()
+
+
+void Graph::charger(std::string nomFichier)
 {
+
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
     int som, x,y, nbSommets, nbAretes;
     double population ;
-    std::string nom,nomfic;
+    std::string nom;
 
     int indice, som1,som2;
     double poids;
-    std::ifstream fichier("r3.txt");
-    if(fichier)
+    std::fstream fichier(nomFichier, std::ios_base::in);
+    if(fichier.is_open())
     {
         fichier >> nbSommets;
         fichier >> nbAretes;
@@ -526,6 +498,7 @@ void Graph::charger3()
         }
     }
 }
+
 
 void Graph::sauvegarde()
 {
@@ -594,30 +567,24 @@ void Graph::add_vertex()
             if((som1==a)&&(m_vertices.count(som2)==1))
             {
 
-                    add_interfaced_edge(indice,som1,som2,poids);
+                add_interfaced_edge(indice,som1,som2,poids);
 
 
             }
-             if((som2==a)&&(m_vertices.count(som1)==1))
+            if((som2==a)&&(m_vertices.count(som1)==1))
             {
 
-                    add_interfaced_edge(indice,som1,som2,poids);
+                add_interfaced_edge(indice,som1,som2,poids);
 
 
             }
 
 
-            }
-
-
-
+        }
 
         fichier.close();
     }
     else
         std::cerr<<"erreur";
-
-
-
 
 }

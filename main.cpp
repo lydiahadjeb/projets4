@@ -13,19 +13,14 @@ int main()
 
     /// Un exemple de graphe
     Graph g;
-
-    g.charger3();
-
-
-    //g.charger1();
-    g.sauvegarde();
-
+    g.charger("r1.txt");
 
 
     /// Vous gardez la main sur la "boucle de jeu"
     /// ( contrairement à des frameworks plus avancés )
     while ( !key[KEY_ESC] )
     {
+
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
         g.update();
 
