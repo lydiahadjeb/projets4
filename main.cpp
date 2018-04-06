@@ -13,7 +13,12 @@ int main()
 
     /// Un exemple de graphe
     Graph g;
+
     g.charger3();
+
+
+    //g.charger1();
+    g.sauvegarde();
 
 
 

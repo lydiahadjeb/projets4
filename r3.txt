@@ -1,19 +1,19 @@
 14
 21
-0 10.0 100 100 brochet.jpg 
-1 12.0 200 100 brochet.jpg
-2 20.0 300 100 brochet.jpg
-3 25.0 400 100 brochet.jpg
-4 30.0 100 200 brochet.jpg
-5 40.0 200 200 brochet.jpg
-6 45.0 300 200 brochet.jpg
-7 47.0 400 200 brochet.jpg
-8 50.0 100 300 brochet.jpg
-9 55.0 200 300 brochet.jpg
-10 60.0 300 300 brochet.jpg
-11 70.0 400 300 brochet.jpg
-12 80.0 100 500 brochet.jpg
-13 100.0 300 500 brochet.jpg
+0 10.0 35 50 brochet.jpg 
+1 12.0 475 10 brochet.jpg
+2 20.0 233 25 brochet.jpg
+3 25.0 827 35 brochet.jpg
+4 30.0 370 230 brochet.jpg
+5 40.0 150 390 brochet.jpg
+6 45.0 125 200 brochet.jpg
+7 47.0 160 200 brochet.jpg
+8 50.0 595 196 brochet.jpg
+9 55.0 550 500 brochet.jpg
+10 60.0 270 520 brochet.jpg
+11 70.0 575 505 brochet.jpg
+12 80.0 785 240 brochet.jpg
+13 100.0 820 370 brochet.jpg
 0 0 4 20.0
 1 0 5 25.0 
 2 0 6 30.0

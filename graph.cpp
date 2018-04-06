@@ -162,18 +162,32 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_add_vertex.add_child( m_img3 );
     m_img3.set_pic_name("add.jpg");
 
-    // bouton ajouter arc
-    m_tool_box.add_child( m_add_edges );
-    m_add_edges.set_frame(2,200,80,80);
-    m_add_edges.add_child( m_img4 );
-    m_img4.set_pic_name("add2.jpg");
-
 
     // bouton sauvgarde
     m_tool_box.add_child( m_save );
-    m_save.set_frame(2,550,80,80);
+    m_save.set_frame(2,640,80,80);
     m_save.add_child( m_img2 );
     m_img2.set_pic_name("save.jpg");
+
+    // bouton graphe1
+    m_tool_box.add_child( m_graphe1 );
+    m_graphe1.set_frame(2, 300,80,80);
+    m_graphe1.add_child(m_img5);
+    m_img5.set_pic_name("numero1.jpg");
+
+    // bouton graphe2
+    m_tool_box.add_child( m_graphe2 );
+    m_graphe2.set_frame(2, 400,80,80);
+    m_graphe2.add_child(m_img6);
+    m_img6.set_pic_name("numero2.jpg");
+
+
+    // bouton graphe3
+    m_tool_box.add_child( m_graphe3 );
+    m_graphe3.set_frame(2, 500,80,80);
+    m_graphe3.add_child(m_img7);
+    m_img7.set_pic_name("numero3.jpg");
+
 
 }
 
@@ -239,15 +253,30 @@ void Graph::update()
         test_remove_vertex();
     }
 
-    if(m_interface->m_add_edges.clicked())
+    if(m_interface-> m_graphe1.clicked())
     {
-        add_edges();
+        charger1();
+    }
+    if(m_interface-> m_graphe2.clicked())
+    {
+        charger2();
+    }
+    if(m_interface-> m_graphe3.clicked())
+    {
+        charger3();
     }
 
     if(m_interface->m_save.clicked())
     {
         sauvegarde();
     }
+
+
+    if(m_interface->m_add_vertex.clicked())
+    {
+        add_vertex();
+    }
+
 
 
 }
@@ -372,10 +401,6 @@ void Graph::test_remove_vertex()
     }
 
 
-
-    m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
-    m_vertices.erase(vidx);
-
     for(auto& elem: m_edges)
     {
         if((elem.second.m_to==vidx)||(elem.second.m_from==vidx))
@@ -384,44 +409,12 @@ void Graph::test_remove_vertex()
 
         }
     }
+     m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
+    m_vertices.erase(vidx);
 
 
 }
 
-
-void Graph::add_edges()
-{
-    int n,sommet1,sommet2;
-    float poids;
-    bool ok=false;
-
-    do
-    {
-
-        if((m_edges.count(n))==1)
-        {
-            n++;
-        }
-        else
-        {
-            ok=true;
-        }
-    }
-    while(!ok);
-
-    std::cout<<"quel est le sommet de depart de l'arete?"<<std::endl;
-    std::cin>>sommet1;
-    std::cout<<"quel est le sommet d'arriver de l'arete?"<<std::endl;
-    std::cin>>sommet2;
-    std::cout<<"quel est le poids de l'arete?"<<std::endl;
-    std::cin>>poids;
-
-    add_interfaced_edge(n,sommet1,sommet2,poids);
-
-
-
-
-}
 
 
 /*void Graph::charger()
@@ -538,25 +531,93 @@ void Graph::sauvegarde()
 {
     std::string nom, nom2;
 ///vertex
-std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
-std::cin>> nom;
-nom2=nom+".txt";
+    std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
+    std::cin>> nom;
+    nom2=nom+".txt";
 
-std::ofstream fichier (nom2);
+    std::ofstream fichier (nom2);
 ///parcourir la map de vertex et la retranscrire dans un fichier
-        fichier<<m_vertices.size()<<std::endl;
-        fichier<<m_edges.size()<<std::endl;
-        for (const auto & elem : m_vertices )
-        {
+    fichier<<m_vertices.size()<<std::endl;
+    fichier<<m_edges.size()<<std::endl;
+    for (const auto & elem : m_vertices )
+    {
 
-           fichier<<elem.first<< ' '<<elem.second.m_value<< ' '<<elem.second.m_interface->m_top_box.get_posx()<< ' '<< elem.second.m_interface->m_top_box.get_posy()<< ' ' << elem.second.m_interface->m_img.get_pic_name()<<std::endl;
-        }
+        fichier<<elem.first<< ' '<<elem.second.m_value<< ' '<<elem.second.m_interface->m_top_box.get_posx()<< ' '<< elem.second.m_interface->m_top_box.get_posy()<< ' ' << elem.second.m_interface->m_img.get_pic_name()<<std::endl;
+    }
 /// ajouter une ligne pour actualiser la position avec le chemin indique
 
 ///edge
-        for (const auto & elem3 : m_edges )
-        {
+    for (const auto & elem3 : m_edges )
+    {
 
-           fichier<<elem3.first<<' ' <<elem3.second.m_from<< ' ' << elem3.second.m_to<<' ' << elem3.second.m_weight<<std::endl;
+        fichier<<elem3.first<<' ' <<elem3.second.m_from<< ' ' << elem3.second.m_to<<' ' << elem3.second.m_weight<<std::endl;
+    }
+}
+
+void Graph::add_vertex()
+{
+    std::string nom, nom2;
+    std::cout<<"quel est le nom du graph d'origine ?"<<std::endl;
+    std::cin>>nom;
+    nom2=nom+".txt";
+    std::ifstream fichier(nom2);
+
+    if(fichier)
+    {
+
+        int a;
+        std::cout<<"quel sommet voulez vous ajouter ?"<<std::endl;
+        std::cin>>a;
+
+        int som, x,y, nbSommets, nbAretes;
+        double population ;
+        std::string nom,nomfic;
+        int indice, som1,som2;
+        double poids;
+
+        fichier >> nbSommets;
+        fichier >> nbAretes;
+        for( int i(0); i < nbSommets; ++i)
+        {
+            fichier >> som >> population >> x >> y >> nom;
+            if(som==a)
+            {
+                add_interfaced_vertex(som,population,x,y,nom);
+
+            }
         }
+
+        for( int i(0); i < nbAretes; ++i)
+        {
+            fichier >> indice >> som1 >> som2 >> poids;
+            //if((som1)==a||(som2)==a)
+            if((som1==a)&&(m_vertices.count(som2)==1))
+            {
+
+                    add_interfaced_edge(indice,som1,som2,poids);
+
+
+            }
+             if((som2==a)&&(m_vertices.count(som1)==1))
+            {
+
+                    add_interfaced_edge(indice,som1,som2,poids);
+
+
+            }
+
+
+            }
+
+
+
+
+        fichier.close();
+    }
+    else
+        std::cerr<<"erreur";
+
+
+
+
 }

@@ -280,6 +280,20 @@ class GraphInterface
         grman::WidgetButton m_save;
         grman::WidgetImage m_img2;
 
+        //bouton graphe1
+         grman::WidgetButton m_graphe1;
+        grman::WidgetImage m_img5;
+
+        //bouton graphe2
+         grman::WidgetButton m_graphe2;
+        grman::WidgetImage m_img6;
+
+        //bouton graphe3
+         grman::WidgetButton m_graphe3;
+        grman::WidgetImage m_img7;
+
+
+
 
         // A compléter éventuellement par des widgets de décoration ou
         // d'édition (boutons ajouter/enlever ...)
@@ -317,7 +331,7 @@ class Graph
         void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
         void test_remove_edge(int eidx);
         void test_remove_vertex();
-        void add_edges();
+        void add_vertex();
 
         /// Méthode spéciale qui construit un graphe arbitraire (démo)
         /// Voir implémentation dans le .cpp
