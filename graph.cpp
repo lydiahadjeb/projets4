@@ -171,7 +171,7 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
 
     // bouton sauvgarde
     m_tool_box.add_child( m_save );
-    m_save.set_frame(2,640,80,80);
+    m_save.set_frame(2,550,80,80);
     m_save.add_child( m_img2 );
     m_img2.set_pic_name("save.jpg");
 
@@ -244,6 +244,11 @@ void Graph::update()
         add_edges();
     }
 
+    if(m_interface->m_save.clicked())
+    {
+        sauvegarde();
+    }
+
 
 }
 
@@ -261,6 +266,7 @@ void Graph::add_interfaced_vertex(int idx, double value, int x, int y, std::stri
     m_interface->m_main_box.add_child(vi->m_top_box);
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
     m_vertices[idx] = Vertex(value, vi);
+
 }
 
 /// Aide à l'ajout d'arcs interfacés
@@ -284,6 +290,9 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
 
     m_edges[idx].m_from=id_vert1;
     m_edges[idx].m_to=id_vert2;
+
+    m_vertices[id_vert1].m_out.push_back(idx);
+    m_vertices[id_vert2].m_in.push_back(idx);
 
     m_vertices[id_vert1].m_out.push_back(idx);
     m_vertices[id_vert2].m_in.push_back(idx);
@@ -457,13 +466,13 @@ void Graph::charger1()
     {
         fichier >> nbSommets;
         fichier >> nbAretes;
-        for(unsigned int i(0); i < nbSommets; ++i)
+        for(int i(0); i < nbSommets; ++i)
         {
             fichier >> som >> population >> x >> y >> nom;
             add_interfaced_vertex(som,population,x,y,nom);
         }
 
-        for(unsigned int i(0); i < nbAretes; ++i)
+        for( int i(0); i < nbAretes; ++i)
         {
             fichier >> indice >> som1 >> som2 >> poids;
             add_interfaced_edge(indice,som1,som2,poids);
@@ -484,13 +493,13 @@ void Graph::charger2()
     {
         fichier >> nbSommets;
         fichier >> nbAretes;
-        for(unsigned int i(0); i < nbSommets; ++i)
+        for(int i(0); i < nbSommets; ++i)
         {
             fichier >> som >> population >> x >> y >> nom;
             add_interfaced_vertex(som,population,x,y,nom);
         }
 
-        for(unsigned int i(0); i < nbAretes; ++i)
+        for( int i(0); i < nbAretes; ++i)
         {
             fichier >> indice >> som1 >> som2 >> poids;
             add_interfaced_edge(indice,som1,som2,poids);
@@ -511,13 +520,13 @@ void Graph::charger3()
     {
         fichier >> nbSommets;
         fichier >> nbAretes;
-        for(unsigned int i(0); i < nbSommets; ++i)
+        for( int i(0); i < nbSommets; ++i)
         {
             fichier >> som >> population >> x >> y >> nom;
             add_interfaced_vertex(som,population,x,y,nom);
         }
 
-        for(unsigned int i(0); i < nbAretes; ++i)
+        for( int i(0); i < nbAretes; ++i)
         {
             fichier >> indice >> som1 >> som2 >> poids;
             add_interfaced_edge(indice,som1,som2,poids);
@@ -529,11 +538,11 @@ void Graph::sauvegarde()
 {
     std::string nom, nom2;
 ///vertex
-//std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
-//std::cin>> nom;
-//nom2=nom+".txt";
+std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
+std::cin>> nom;
+nom2=nom+".txt";
 
-std::ofstream fichier ("sauvegarde.txt");
+std::ofstream fichier (nom2);
 ///parcourir la map de vertex et la retranscrire dans un fichier
         fichier<<m_vertices.size()<<std::endl;
         fichier<<m_edges.size()<<std::endl;
