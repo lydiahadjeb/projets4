@@ -331,6 +331,7 @@ class Graph
         void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
         void test_remove_edge(int eidx);
         void test_remove_vertex();
+        void test_remove_vertex(int vidx);
         void add_edges();
 
         /// Méthode spéciale qui construit un graphe arbitraire (démo)
@@ -339,13 +340,13 @@ class Graph
         /// de chargement de fichiers par exemple.
         void make_example();
 
-        void charger1();
-        void charger2();
-        void charger3();
+        void charger(std::string nomFichier);
         void sauvegarde ();
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();
+
+        void clear();
 };
 
 
