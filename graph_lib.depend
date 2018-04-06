@@ -168,3 +168,60 @@
 	<iostream>
 	"graph.h"
 
+1523011003 source:c:\users\skef1one\projets4\graph.cpp
+	"graph.h"
+	<fstream>
+
+1523010925 c:\users\skef1one\projets4\graph.h
+	<vector>
+	<map>
+	<string>
+	<memory>
+	<fstream>
+	"grman/grman.h"
+
+1522884721 c:\users\skef1one\projets4\grman\grman.h
+	<allegro.h>
+	<string>
+	"grman_couleurs.h"
+	"coords.h"
+	"widget.h"
+
+1522884721 c:\users\skef1one\projets4\grman\grman_couleurs.h
+
+1522884721 c:\users\skef1one\projets4\grman\coords.h
+	<cmath>
+
+1522947063 c:\users\skef1one\projets4\grman\widget.h
+	"grman.h"
+	<iostream>
+	<string>
+	<vector>
+	<algorithm>
+	<allegro.h>
+
+1522884721 source:c:\users\skef1one\projets4\grman\coords.cpp
+	"coords.h"
+
+1523011566 source:c:\users\skef1one\projets4\grman\grman.cpp
+	<cmath>
+	<unordered_map>
+	<unordered_set>
+	<utility>
+	<string>
+	<iostream>
+	<regex>
+	"grman.h"
+	<allegro.h>
+	<png.h>
+	<loadpng.h>
+	<jpgalleg.h>
+
+1522947063 source:c:\users\skef1one\projets4\grman\widget.cpp
+	"widget.h"
+
+1523009960 source:c:\users\skef1one\projets4\main.cpp
+	"grman/grman.h"
+	<iostream>
+	"graph.h"
+

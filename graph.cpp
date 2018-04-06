@@ -175,6 +175,26 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_save.add_child( m_img2 );
     m_img2.set_pic_name("save.jpg");
 
+    // bouton graphe1
+     m_tool_box.add_child( m_graphe1 );
+     m_graphe1.set_frame(2, 300,80,80);
+     m_graphe1.add_child(m_img5);
+     m_img5.set_pic_name("numero1.jpg");
+
+         // bouton graphe2
+     m_tool_box.add_child( m_graphe2 );
+     m_graphe2.set_frame(2, 400,80,80);
+     m_graphe2.add_child(m_img6);
+     m_img6.set_pic_name("numero2.jpg");
+
+
+         // bouton graphe3
+     m_tool_box.add_child( m_graphe3 );
+     m_graphe3.set_frame(2, 500,80,80);
+     m_graphe3.add_child(m_img7);
+     m_img7.set_pic_name("numero3.jpg");
+
+
 }
 
 
@@ -242,6 +262,18 @@ void Graph::update()
     if(m_interface->m_add_edges.clicked())
     {
         add_edges();
+    }
+    if(m_interface-> m_graphe1.clicked())
+    {
+        charger1();
+    }
+     if(m_interface-> m_graphe2.clicked())
+    {
+        charger2();
+    }
+     if(m_interface-> m_graphe3.clicked())
+    {
+        charger3();
     }
 
 

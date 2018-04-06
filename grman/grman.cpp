@@ -18,8 +18,8 @@ namespace grman
 {
 
 // Permet de compiler en mode plein écran (décommenter)
-//#define MODE_GRAPHIQUE GFX_AUTODETECT_WINDOWED
-#define MODE_GRAPHIQUE GFX_AUTODETECT_FULLSCREEN
+#define MODE_GRAPHIQUE GFX_AUTODETECT_WINDOWED
+//#define MODE_GRAPHIQUE GFX_AUTODETECT_FULLSCREEN
 
 // Nombre de pixels horizontalement et verticalement
 #define LARGEURECRAN 1024
@@ -174,7 +174,7 @@ void init()
     set_color_depth(desktop_color_depth());
     if (set_gfx_mode(MODE_GRAPHIQUE,LARGEURECRAN,HAUTEURECRAN,0,0)!=0)
     {
-        if (set_gfx_mode(GFX_AUTODETECT_WINDOWED,800,600,0,0)!=0)
+        if (set_gfx_mode(GFX_AUTODETECT_WINDOWED,1200,600,0,0)!=0)
         {
             allegro_message("prb gfx mode");
             allegro_exit();
