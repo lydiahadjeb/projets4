@@ -332,7 +332,7 @@ class Graph
         void test_remove_edge(int eidx);
         void test_remove_vertex();
         void test_remove_vertex(int vidx);
-        void add_edges();
+
 
         /// Méthode spéciale qui construit un graphe arbitraire (démo)
         /// Voir implémentation dans le .cpp

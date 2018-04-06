@@ -162,11 +162,6 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_add_vertex.add_child( m_img3 );
     m_img3.set_pic_name("add.jpg");
 
-    // bouton ajouter arc
-    m_tool_box.add_child( m_add_edges );
-    m_add_edges.set_frame(2,200,80,80);
-    m_add_edges.add_child( m_img4 );
-    m_img4.set_pic_name("add2.jpg");
 
 
     // bouton sauvgarde
@@ -259,10 +254,7 @@ void Graph::update()
         test_remove_vertex();
     }
 
-    if(m_interface->m_add_edges.clicked())
-    {
-        add_edges();
-    }
+
      if(m_interface->m_graphe1.clicked())
     {
         clear();
@@ -402,8 +394,6 @@ void Graph::test_remove_vertex()
 
 
 
-    m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
-    m_vertices.erase(vidx);
 
     for(auto& elem: m_edges)
     {
@@ -414,6 +404,8 @@ void Graph::test_remove_vertex()
         }
     }
 
+    m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
+    m_vertices.erase(vidx);
 
 }
 
@@ -439,8 +431,7 @@ void Graph::test_remove_vertex(int vidx)
 
 
 
-    m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
-    m_vertices.erase(vidx);
+
 
     for(auto& elem: m_edges)
     {
@@ -451,43 +442,14 @@ void Graph::test_remove_vertex(int vidx)
         }
     }
 
-
-}
-
-
-void Graph::add_edges()
-{
-    int n,sommet1,sommet2;
-    float poids;
-    bool ok=false;
-
-    do
-    {
-
-        if((m_edges.count(n))==1)
-        {
-            n++;
-        }
-        else
-        {
-            ok=true;
-        }
-    }
-    while(!ok);
-
-    std::cout<<"quel est le sommet de depart de l'arete?"<<std::endl;
-    std::cin>>sommet1;
-    std::cout<<"quel est le sommet d'arriver de l'arete?"<<std::endl;
-    std::cin>>sommet2;
-    std::cout<<"quel est le poids de l'arete?"<<std::endl;
-    std::cin>>poids;
-
-    add_interfaced_edge(n,sommet1,sommet2,poids);
-
+    m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
+    m_vertices.erase(vidx);
 
 
 
 }
+
+
 
 
 /*void Graph::charger()
