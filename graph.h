@@ -281,16 +281,20 @@ class GraphInterface
         grman::WidgetImage m_img2;
 
         //bouton graphe1
-         grman::WidgetButton m_graphe1;
+        grman::WidgetButton m_graphe1;
         grman::WidgetImage m_img5;
 
         //bouton graphe2
-         grman::WidgetButton m_graphe2;
+        grman::WidgetButton m_graphe2;
         grman::WidgetImage m_img6;
 
         //bouton graphe3
-         grman::WidgetButton m_graphe3;
+        grman::WidgetButton m_graphe3;
         grman::WidgetImage m_img7;
+
+         //bouton charger graph
+        grman::WidgetButton m_charger;
+        grman::WidgetImage m_img8;
 
 
 
