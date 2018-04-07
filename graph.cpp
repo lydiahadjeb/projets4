@@ -163,7 +163,6 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_img3.set_pic_name("add.jpg");
 
 
-
     // bouton sauvgarde
     m_tool_box.add_child( m_save );
     m_save.set_frame(2,640,80,80);
@@ -171,23 +170,23 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_img2.set_pic_name("save.jpg");
 
     // bouton graphe1
-     m_tool_box.add_child( m_graphe1 );
-     m_graphe1.set_frame(2, 300,80,80);
-     m_graphe1.add_child(m_img5);
-     m_img5.set_pic_name("numero1.jpg");
+    m_tool_box.add_child( m_graphe1 );
+    m_graphe1.set_frame(2, 300,80,80);
+    m_graphe1.add_child(m_img5);
+    m_img5.set_pic_name("numero1.jpg");
 
-         // bouton graphe2
-     m_tool_box.add_child( m_graphe2 );
-     m_graphe2.set_frame(2, 400,80,80);
-     m_graphe2.add_child(m_img6);
-     m_img6.set_pic_name("numero2.jpg");
+    // bouton graphe2
+    m_tool_box.add_child( m_graphe2 );
+    m_graphe2.set_frame(2, 400,80,80);
+    m_graphe2.add_child(m_img6);
+    m_img6.set_pic_name("numero2.jpg");
 
 
-         // bouton graphe3
-     m_tool_box.add_child( m_graphe3 );
-     m_graphe3.set_frame(2, 500,80,80);
-     m_graphe3.add_child(m_img7);
-     m_img7.set_pic_name("numero3.jpg");
+    // bouton graphe3
+    m_tool_box.add_child( m_graphe3 );
+    m_graphe3.set_frame(2, 500,80,80);
+    m_graphe3.add_child(m_img7);
+    m_img7.set_pic_name("numero3.jpg");
 
 
 }
@@ -256,20 +255,35 @@ void Graph::update()
 
 
      if(m_interface->m_graphe1.clicked())
+
     {
         clear();
         charger("r1.txt");
     }
+
     if(m_interface->m_graphe2.clicked())
     {
         clear();
         charger("r2.txt");
     }
-     if(m_interface->m_graphe3.clicked())
+
+    if(m_interface->m_graphe3.clicked())
     {
         clear();
         charger("r3.txt");
     }
+
+    if(m_interface->m_save.clicked())
+    {
+        sauvegarde();
+    }
+
+
+    if(m_interface->m_add_vertex.clicked())
+    {
+        add_vertex();
+    }
+
 
 
 
@@ -291,6 +305,7 @@ void Graph::add_interfaced_vertex(int idx, double value, int x, int y, std::stri
     m_interface->m_main_box.add_child(vi->m_top_box);
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
     m_vertices[idx] = Vertex(value, vi);
+
 }
 
 /// Aide à l'ajout d'arcs interfacés
@@ -314,6 +329,9 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
 
     m_edges[idx].m_from=id_vert1;
     m_edges[idx].m_to=id_vert2;
+
+    m_vertices[id_vert1].m_out.push_back(idx);
+    m_vertices[id_vert2].m_in.push_back(idx);
 
     m_vertices[id_vert1].m_out.push_back(idx);
     m_vertices[id_vert2].m_in.push_back(idx);
@@ -393,8 +411,6 @@ void Graph::test_remove_vertex()
     }
 
 
-
-
     for(auto& elem: m_edges)
     {
         if((elem.second.m_to==vidx)||(elem.second.m_from==vidx))
@@ -403,7 +419,6 @@ void Graph::test_remove_vertex()
 
         }
     }
-
     m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
     m_vertices.erase(vidx);
 
@@ -430,9 +445,6 @@ void Graph::test_remove_vertex(int vidx)
     }
 
 
-
-
-
     for(auto& elem: m_edges)
     {
         if((elem.second.m_to==vidx)||(elem.second.m_from==vidx))
@@ -441,47 +453,17 @@ void Graph::test_remove_vertex(int vidx)
 
         }
     }
-
     m_interface->m_main_box.remove_child(remed.m_interface->m_top_box);
     m_vertices.erase(vidx);
-
 
 
 }
 
 
 
-
-/*void Graph::charger()
+void Graph::clear()
 {
-    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
-    int som, x,y, nbSommets, nbAretes;
-    double population ;
-    std::string nom,nomfic;
 
-    int indice, som1,som2;
-    double poids;
-    std::ifstream fichier("r1.txt");
-    if(fichier)
-    {
-        fichier >> nbSommets;
-        fichier >> nbAretes;
-        for(unsigned int i(0); i < nbSommets; ++i)
-        {
-            fichier >> som >> population >> x >> y >> nom;
-
-            add_interfaced_vertex(som,population,x,y,nom);
-        }
-
-        for(unsigned int i(0); i < nbAretes; ++i)
-        {
-            fichier >> indice >> som1 >> som2 >> poids;
-            add_interfaced_edge(indice,som1,som2,poids);
-        }
-    }
-}*/
-
-void Graph::clear() {
     for (auto &it : m_vertices)
         test_remove_vertex(it.first);
 
@@ -489,9 +471,9 @@ void Graph::clear() {
         test_remove_edge(it.first);
 }
 
-
 void Graph::charger(std::string nomFichier)
 {
+
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
     int som, x,y, nbSommets, nbAretes;
     double population ;
@@ -504,13 +486,13 @@ void Graph::charger(std::string nomFichier)
     {
         fichier >> nbSommets;
         fichier >> nbAretes;
-        for(unsigned int i(0); i < nbSommets; ++i)
+        for( int i(0); i < nbSommets; ++i)
         {
             fichier >> som >> population >> x >> y >> nom;
             add_interfaced_vertex(som,population,x,y,nom);
         }
 
-        for(unsigned int i(0); i < nbAretes; ++i)
+        for( int i(0); i < nbAretes; ++i)
         {
             fichier >> indice >> som1 >> som2 >> poids;
             add_interfaced_edge(indice,som1,som2,poids);
@@ -523,25 +505,87 @@ void Graph::sauvegarde()
 {
     std::string nom, nom2;
 ///vertex
-//std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
-//std::cin>> nom;
-//nom2=nom+".txt";
+    std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
+    std::cin>> nom;
+    nom2=nom+".txt";
 
-std::ofstream fichier ("sauvegarde.txt");
+    std::ofstream fichier (nom2);
 ///parcourir la map de vertex et la retranscrire dans un fichier
-        fichier<<m_vertices.size()<<std::endl;
-        fichier<<m_edges.size()<<std::endl;
-        for (const auto & elem : m_vertices )
-        {
+    fichier<<m_vertices.size()<<std::endl;
+    fichier<<m_edges.size()<<std::endl;
+    for (const auto & elem : m_vertices )
+    {
 
-           fichier<<elem.first<< ' '<<elem.second.m_value<< ' '<<elem.second.m_interface->m_top_box.get_posx()<< ' '<< elem.second.m_interface->m_top_box.get_posy()<< ' ' << elem.second.m_interface->m_img.get_pic_name()<<std::endl;
-        }
+        fichier<<elem.first<< ' '<<elem.second.m_value<< ' '<<elem.second.m_interface->m_top_box.get_posx()<< ' '<< elem.second.m_interface->m_top_box.get_posy()<< ' ' << elem.second.m_interface->m_img.get_pic_name()<<std::endl;
+    }
 /// ajouter une ligne pour actualiser la position avec le chemin indique
 
 ///edge
-        for (const auto & elem3 : m_edges )
-        {
+    for (const auto & elem3 : m_edges )
+    {
 
-           fichier<<elem3.first<<' ' <<elem3.second.m_from<< ' ' << elem3.second.m_to<<' ' << elem3.second.m_weight<<std::endl;
+        fichier<<elem3.first<<' ' <<elem3.second.m_from<< ' ' << elem3.second.m_to<<' ' << elem3.second.m_weight<<std::endl;
+    }
+}
+
+void Graph::add_vertex()
+{
+    std::string nom, nom2;
+    std::cout<<"quel est le nom du graph d'origine ?"<<std::endl;
+    std::cin>>nom;
+    nom2=nom+".txt";
+    std::ifstream fichier(nom2);
+
+    if(fichier)
+    {
+
+        int a;
+        std::cout<<"quel sommet voulez vous ajouter ?"<<std::endl;
+        std::cin>>a;
+
+        int som, x,y, nbSommets, nbAretes;
+        double population ;
+        std::string nom,nomfic;
+        int indice, som1,som2;
+        double poids;
+
+        fichier >> nbSommets;
+        fichier >> nbAretes;
+        for( int i(0); i < nbSommets; ++i)
+        {
+            fichier >> som >> population >> x >> y >> nom;
+            if(som==a)
+            {
+                add_interfaced_vertex(som,population,x,y,nom);
+
+            }
         }
+
+        for( int i(0); i < nbAretes; ++i)
+        {
+            fichier >> indice >> som1 >> som2 >> poids;
+
+            if((som1==a)&&(m_vertices.count(som2)==1))
+            {
+
+                add_interfaced_edge(indice,som1,som2,poids);
+
+
+            }
+            if((som2==a)&&(m_vertices.count(som1)==1))
+            {
+
+                add_interfaced_edge(indice,som1,som2,poids);
+
+
+            }
+
+
+        }
+
+        fichier.close();
+    }
+    else
+        std::cerr<<"erreur";
+
 }
