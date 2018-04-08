@@ -13,7 +13,9 @@ int main()
 
     /// Un exemple de graphe
     Graph g;
-    g.charger("r1.txt");
+    g.charger("r2.txt");
+
+
 
 
     /// Vous gardez la main sur la "boucle de jeu"

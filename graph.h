@@ -281,16 +281,20 @@ class GraphInterface
         grman::WidgetImage m_img2;
 
         //bouton graphe1
-         grman::WidgetButton m_graphe1;
+        grman::WidgetButton m_graphe1;
         grman::WidgetImage m_img5;
 
         //bouton graphe2
-         grman::WidgetButton m_graphe2;
+        grman::WidgetButton m_graphe2;
         grman::WidgetImage m_img6;
 
         //bouton graphe3
-         grman::WidgetButton m_graphe3;
+        grman::WidgetButton m_graphe3;
         grman::WidgetImage m_img7;
+
+         //bouton charger graph
+        grman::WidgetButton m_charger;
+        grman::WidgetImage m_img8;
 
 
 
@@ -343,7 +347,6 @@ class Graph
         /// Cette méthode est à enlever et remplacer par un système
         /// de chargement de fichiers par exemple.
         void make_example();
-
         void charger(std::string nomFichier);
         void sauvegarde ();
 

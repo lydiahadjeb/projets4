@@ -1,16 +1,16 @@
 11
 13
 0 30.0 100 100 phytoplancton.jpg
-1 50.0 200 100 brochet.jpg
-2 50.0 200 300 brochet.jpg
-3 20.0 300 400 brochet.jpg
-4 100.0 400 200 brochet.jpg
-5 25.0 200 300 brochet.jpg
-6 25.0 400 300 brochet.jpg
-7 40.0 600 300 brochet.jpg
-8 30.0 400 400 brochet.jpg
-9 45.0 500 500 brochet.jpg
-10 60.0 700 500 brochet.jpg
+1 50.0 200 100 zooplancton.jpg
+2 50.0 200 300 krill.jpg
+3 20.0 300 400 macareux.jpg
+4 100.0 400 200 liondemer.jpg
+5 25.0 200 300 poison.jpg
+6 25.0 400 300 phoque.jpg
+7 40.0 600 300 morse.jpg
+8 30.0 400 400 oursblanc.jpg
+9 45.0 500 500 renard.jpg
+10 60.0 700 500 inuit.jpg
 0 0 1 50.0
 1 1 2 50.0
 2 2 4 40.0

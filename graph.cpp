@@ -1,5 +1,7 @@
 #include "graph.h"
 #include <fstream>
+#include <vector>
+
 
 /***************************************************
                     VERTEX
@@ -169,6 +171,13 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_save.add_child( m_img2 );
     m_img2.set_pic_name("save.jpg");
 
+     // bouton charger graph
+    m_tool_box.add_child( m_charger );
+    m_charger.set_frame(2, 200,80,80);
+    m_charger.add_child(m_img8);
+    m_img8.set_pic_name("charger.jpg");
+
+
     // bouton graphe1
     m_tool_box.add_child( m_graphe1 );
     m_graphe1.set_frame(2, 300,80,80);
@@ -271,6 +280,16 @@ void Graph::update()
     {
         clear();
         charger("r3.txt");
+    }
+
+     if(m_interface->m_charger.clicked())
+    {
+        clear();
+        std::string nom, nom2;
+        std::cout<<"quel graph voulez vous charger ?"<<std::endl;
+        std::cin>>nom;
+        nom2=nom+".txt";
+        charger(nom2);
     }
 
     if(m_interface->m_save.clicked())
@@ -505,7 +524,7 @@ void Graph::sauvegarde()
 {
     std::string nom, nom2;
 ///vertex
-    std::cout<<"Veuillez choisir le nom de votre fichier de sauvegarde"<<std::endl;
+    std::cout<<"Veuillez saisir le nom de sauvgarde:"<<std::endl;
     std::cin>> nom;
     nom2=nom+".txt";
 
@@ -589,3 +608,7 @@ void Graph::add_vertex()
         std::cerr<<"erreur";
 
 }
+
+
+
+
